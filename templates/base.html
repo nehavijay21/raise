@@ -3,127 +3,624 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}My Application{% endblock %}</title>
-    <!-- Include Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <!-- Font Awesome CDN for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    
+
+    <title>{% block title %}RAISE{% endblock %}</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
 
     <style>
-        header {
-            background-color: #04026a;
-            color: #79c1f9;
-            padding: 15px 20px;
+
+        /* =====================================================
+           GLOBAL
+        ===================================================== */
+
+        :root {
+            --navy: #0B1F3A;
+            --navy-light: #122B4D;
+            --blue: #2563EB;
+            --blue-light: #EFF6FF;
+            --teal: #0F766E;
+            --teal-light: #ECFDF5;
+
+            --background: #F4F7FB;
+            --card: #FFFFFF;
+
+            --text-dark: #172033;
+            --text-muted: #64748B;
+
+            --border: #E2E8F0;
+
+            --sidebar-width: 250px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: var(--background);
+            color: var(--text-dark);
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+
+        /* =====================================================
+           SIDEBAR
+        ===================================================== */
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: var(--sidebar-width);
+            height: 100vh;
+
+            background: linear-gradient(
+                180deg,
+                #0B1F3A 0%,
+                #102A4C 100%
+            );
+
+            color: white;
+            z-index: 1000;
+
+            display: flex;
+            flex-direction: column;
+
+            box-shadow: 4px 0 20px rgba(11, 31, 58, 0.08);
+        }
+
+
+        /* LOGO */
+
+        .brand {
+            height: 85px;
+            display: flex;
+            align-items: center;
+            padding: 0 25px;
+
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+
+            border-radius: 10px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #2563EB;
+
+            margin-right: 12px;
+
+            font-size: 20px;
+        }
+
+        .brand-text {
+            font-size: 23px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .brand-subtitle {
+            font-size: 9px;
+            color: #94A3B8;
+            letter-spacing: 1px;
+            margin-top: -2px;
+        }
+
+
+        /* NAVIGATION */
+
+        .sidebar-nav {
+            padding: 22px 14px;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .nav-section {
+            color: #64748B;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.3px;
+            text-transform: uppercase;
+
+            padding: 0 12px;
+            margin: 12px 0 10px;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+
+            padding: 11px 13px;
+            margin-bottom: 4px;
+
+            color: #CBD5E1;
+
+            border-radius: 8px;
+
+            font-size: 13px;
+            font-weight: 500;
+
+            transition: all 0.2s ease;
+        }
+
+        .sidebar-link i {
+            width: 25px;
+            font-size: 15px;
+            margin-right: 9px;
+        }
+
+        .sidebar-link:hover {
+            background: rgba(255,255,255,0.08);
+            color: white;
+            transform: translateX(2px);
+        }
+
+        .sidebar-link.active {
+            background: #2563EB;
+            color: white;
+
+            box-shadow: 0 5px 15px rgba(37,99,235,0.25);
+        }
+
+
+        /* SIDEBAR FOOTER */
+
+        .sidebar-footer {
+            padding: 16px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .sidebar-version {
+            text-align: center;
+            color: #64748B;
+            font-size: 10px;
+        }
+
+
+        /* =====================================================
+           MAIN CONTENT
+        ===================================================== */
+
+        .main-wrapper {
+            margin-left: var(--sidebar-width);
+            min-height: 100vh;
+        }
+
+
+        /* =====================================================
+           TOPBAR
+        ===================================================== */
+
+        .topbar {
+            height: 85px;
+
+            background: white;
+
+            border-bottom: 1px solid var(--border);
+
             display: flex;
             align-items: center;
             justify-content: space-between;
+
+            padding: 0 35px;
+
+            position: sticky;
+            top: 0;
+
+            z-index: 900;
         }
-        header h1 {
-            font-size: 3rem;
-            font-weight: bold;
+
+        .page-title {
+            font-size: 17px;
+            font-weight: 700;
             margin: 0;
         }
-        .logout-form {
-            margin: 0;
+
+        .page-subtitle {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 3px;
         }
+
+
+        /* USER */
+
+        .user-area {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .user-info {
+            text-align: right;
+        }
+
+        .user-name {
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .user-role {
+            font-size: 10px;
+            color: var(--text-muted);
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+
+            border-radius: 50%;
+
+            background: #DBEAFE;
+            color: #1D4ED8;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-weight: 700;
+            font-size: 15px;
+        }
+
         .logout-btn {
-            background-color: transparent;
-            border: 1px solid #79c1f9;
-            color: #79c1f9;
-            font-weight: bold;
-            padding: 5px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            border: none;
+            background: #FEF2F2;
+            color: #DC2626;
+
+            width: 36px;
+            height: 36px;
+
+            border-radius: 8px;
+
+            transition: 0.2s;
         }
+
         .logout-btn:hover {
-            background-color: #79c1f9;
-            color: #04026a;
+            background: #FEE2E2;
+            transform: translateY(-1px);
         }
-        footer {
-            background-color: #e3f2fd;
-            color: #0d47a1;
+
+
+        /* =====================================================
+           CONTENT
+        ===================================================== */
+
+        .content-wrapper {
+            padding: 32px 35px 50px;
         }
-        .fixed-bottom {
-            position: static;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            z-index: 1030;
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        .mobile-header {
+            display: none;
         }
-        a i:hover {
-            transform: scale(1.2);
-            transition: transform 0.2s ease;
+
+        @media (max-width: 992px) {
+
+            .sidebar {
+                display: none;
+            }
+
+            .main-wrapper {
+                margin-left: 0;
+            }
+
+            .topbar {
+                padding: 0 20px;
+            }
+
+            .content-wrapper {
+                padding: 25px 20px;
+            }
+
+            .mobile-header {
+                display: block;
+            }
         }
-        a i {
-            font-size: 1rem;  /* Adjust the size here */
-        }
+
     </style>
+
+    {% block extra_css %}{% endblock %}
+
 </head>
+
+
 <body>
-    <header>
-        <h1>RAISE</h1>
-        <form action="{% url 'logout' %}" method="post" class="logout-form">
-            {% csrf_token %}
-            <span class="navbar-text text-white me-3" style="font-size:20px;">Welcome, {{ user.username|title }}!</span>
-            <button type="submit" style="font-size:20px;" class="logout-btn">
-                <div id="log-text">Logout</div>
-            </button>
-        </form>
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="sidebar">
+
+    <div class="brand">
+
+        <div class="brand-icon">
+            <i class="bi bi-mortarboard-fill"></i>
+        </div>
+
+        <div>
+            <div class="brand-text">RAISE</div>
+
+            <div class="brand-subtitle">
+                EXAMINATION MANAGEMENT
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="sidebar-nav">
+
+        <div class="nav-section">
+            Main Menu
+        </div>
+
+        <a href="{% url 'index' %}"
+           class="sidebar-link active">
+
+            <i class="bi bi-grid-1x2-fill"></i>
+
+            Dashboard
+
+        </a>
+
+
+        {% if is_chief %}
+
+        <div class="nav-section">
+            Administration
+        </div>
+
+        <a href="{% url 'program_list' %}"
+           class="sidebar-link">
+
+            <i class="bi bi-diagram-3"></i>
+            Programmes
+
+        </a>
+
+
+        <a href="{% url 'room_list' %}"
+           class="sidebar-link">
+
+            <i class="bi bi-door-open"></i>
+            Rooms
+
+        </a>
+
+
+        <a href="{% url 'course_list' %}"
+           class="sidebar-link">
+
+            <i class="bi bi-book"></i>
+            Courses
+
+        </a>
+
+
+        <a href="{% url 'exam_list' %}"
+           class="sidebar-link">
+
+            <i class="bi bi-journal-check"></i>
+            Examinations
+
+        </a>
+
+
+        <a href="{% url 'timetable_list' %}"
+           class="sidebar-link">
+
+            <i class="bi bi-calendar3"></i>
+            Timetable
+
+        </a>
+
+
+        <a href="{% url 'teacher_list' %}"
+           class="sidebar-link">
+
+            <i class="bi bi-people"></i>
+            Teachers
+
+        </a>
+
+
+        <div class="nav-section">
+            Examination Operations
+        </div>
+
+
+        <a href="{% url 'duty_allotment' %}"
+           class="sidebar-link">
+
+            <i class="bi bi-person-check"></i>
+            Duty Allotment
+
+        </a>
+
+
+        <a href="{% url 'setup_nominal_roll' %}"
+           class="sidebar-link">
+
+            <i class="bi bi-file-earmark-spreadsheet"></i>
+            Attendance
+
+        </a>
+
+
+        <a href="{% url 'chief_duty_history' %}"
+           class="sidebar-link">
+
+            <i class="bi bi-bar-chart"></i>
+            Duty Reports
+
+        </a>
+
+        {% endif %}
+
+
+        {% if is_teacher %}
+
+        <div class="nav-section">
+            Teacher Portal
+        </div>
+
+
+        <a href="{% url 'preference_list' %}"
+           class="sidebar-link">
+
+            <i class="bi bi-sliders"></i>
+            Duty Preferences
+
+        </a>
+
+
+        <a href="{% url 'duty_history' %}"
+           class="sidebar-link">
+
+            <i class="bi bi-clock-history"></i>
+            Duty History
+
+        </a>
+
+        {% endif %}
+
+    </div>
+
+
+    <div class="sidebar-footer">
+
+        <div class="sidebar-version">
+            RAISE • Examination Resource System
+        </div>
+
+    </div>
+
+</aside>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<div class="main-wrapper">
+
+
+    <!-- TOPBAR -->
+
+    <header class="topbar">
+
+        <div>
+
+            <div class="page-title">
+                {% block header_title %}Dashboard{% endblock %}
+            </div>
+
+            <div class="page-subtitle">
+                Resource Allocation & Invigilation Scheduling Engine
+            </div>
+
+        </div>
+
+
+        <div class="user-area">
+
+            <div class="user-info">
+
+                <div class="user-name">
+                    {{ user.username|title }}
+                </div>
+
+                <div class="user-role">
+
+                    {% if is_chief %}
+                        Examination Chief
+                    {% elif is_teacher %}
+                        Faculty / Invigilator
+                    {% else %}
+                        User
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <div class="user-avatar">
+
+                {{ user.username|first|upper }}
+
+            </div>
+
+
+            <form action="{% url 'logout' %}"
+                  method="post"
+                  style="margin:0;">
+
+                {% csrf_token %}
+
+                <button type="submit"
+                        class="logout-btn"
+                        title="Logout">
+
+                    <i class="bi bi-box-arrow-right"></i>
+
+                </button>
+
+            </form>
+
+        </div>
+
     </header>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#"></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="nav nav-tabs">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'index' %}">Index</a>
-                    </li>
-                    
-                    {% if is_chief %}
-                        <li class="nav-item"><a class="nav-link" href="{% url 'program_list' %}">Programmes</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'room_list' %}">Rooms</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'course_list' %}">Courses</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'exam_list' %}">Exams</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'timetable_list' %}">Timetable</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'teacher_list' %}">Teacher</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'duty_allotment' %}">Duty Allotment</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'setup_nominal_roll' %}">Attendance</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'chief_duty_history' %}">Duty History</a></li>
-                    {% endif %}
-                    
-                    {% if is_teacher %}
-                        <li class="nav-item"><a class="nav-link" href="{% url 'preference_list' %}">Duty Preference</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'duty_history' %}">Duty History</a></li>
-                        
-                        <!-- Dropdown for Ongoing Exams, Duty Allotments, and Preferences -->
-                        
-                    {% endif %}
-                </ul>
-            </div>
-        </div>
-    </nav>
 
-    <main>
+    <!-- PAGE CONTENT -->
+
+    <main class="content-wrapper">
+
         {% block content %}
         {% endblock %}
+
     </main>
 
-    <footer class="fixed-bottom">
-        <div class="bg-white text-dark py-3">
-            <div class="container text-center">
-                <p class="mb-0" style="font-size: 0.9rem;">&copy; 2025 Raise. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
+
+{% block extra_js %}
+{% endblock %}
+
 </body>
 </html>

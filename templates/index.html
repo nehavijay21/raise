@@ -1,326 +1,1350 @@
 {% extends 'base.html' %}
 
-{% block title %}Dashboard{% endblock %}
+{% block title %}Dashboard | RAISE{% endblock %}
 
-{% block content %}
-<style>
-    
-    .container {
-        padding-bottom: 20px; /* Space at the bottom */
-    }
-    .footer {
-        position: relative;
-        bottom: 0;
-        width: 100%;
-        text-align: center;
-        padding: 10px 0;
-        background-color: #f8f9fa;
-    }
-    .ongoing-examination-card .cards {
-        background-color: #F1FAFE; /* Very light blue background */
-    }
-    .duty-allotment-card .cards{
-        background-color: #F1FAFE; /* Very light blue background */
-    }
-    .duty-preference-card .cards{
-        background-color: #F1FAFE; /* Very light blue background */
-    }
-
-
-    .card{
-        padding-bottom: 10px;
-        margin-bottom: 15px;
-        overflow: visible;
-        text-align: center;
-        border: 2px solid #1a73e8;
-        background-color: white;
-
-        transform: scale(0.95);
-        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-        border-radius: 12px;
-    }
-
-    .card:hover{
-        transform: scale(1.05) translateY(-5px);
-        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-}
-
-    /* General card-body styles */
-    .card-body {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;  /* Default: Center text */
-        height: 100%; 
-    }
-    .card-title {
-        font-size: 1.25rem;
-        font-weight: bold;
-        text-align: center; /* Ensures the title is centered */
-    }
-    .card-text {
-        font-size: 1rem;
-        text-align: center;
-    }
-
-
-    .card a.btn {
-        display: block;
-        width: 50%; 
-        padding: 8px;
-        background-color: white; 
-        border: 2px solid #1a73e8; 
-        color: #1a73e8; 
-        font-weight: bold;
-        transition: all 0.3s ease-in-out;
-    }
-
-    
-    .card a.btn:hover {
-        background-color: #1a73e8; 
-        color: white;
-        border-color: #1a73e8;
-    }
-
-    
-    
-    
-</style>
-<div class="container mt-5">
-    
-    <div class="row mb-4">
-        <div class="col-12 text-center">
-            <h1 class="display-4 fw-bold" style="font-family: 'Poppins', Georgia, 'Times New Roman', Times, serif; color: #000000; font-size: 2.5rem;">
-                Resource Allocation and Invigilation Scheduling Engine
-            </h1>
-        </div>
-    </div>
-
-    <!-- Added a specific class 'index-cards' to target only these cards on the index page -->
-   <!-- Added a specific class 'index-cards' to target only these cards on the index page -->
-{% if is_chief %}
-<div class="row index-cards">
-    <!-- Manage Programmes Card -->
-    <div class="col-md-4 mb-4">
-        <div class="card shadow-sm border-light rounded">
-            <div class="card-body">
-                <h5 class="card-title">Manage Programmes</h5>
-                <p class="card-text">Easily organize and oversee all your programs.</p>
-                <a href="{% url 'program_list' %}" class="btn btn-primary btn-block">
-                    <i class="bi bi-clipboard-data me-2"></i> Programs
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Manage Rooms Card -->
-    <div class="col-md-4 mb-4">
-        <div class="card shadow-sm border-light rounded">
-            <div class="card-body">
-                <h5 class="card-title">Manage Rooms</h5>
-                <p class="card-text">Maintain room details efficiently.</p>
-                <a href="{% url 'room_list' %}" class="btn btn-primary btn-block">
-                    <i class="bi bi-door-open me-1"></i> Rooms
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Manage Course Card -->
-    <div class="col-md-4 mb-4">
-        <div class="card shadow-sm border-light rounded">
-            <div class="card-body">
-                <h5 class="card-title">Manage Course</h5>
-                <p class="card-text">Handle your course data with flexibility.</p>
-                <a href="{% url 'course_list' %}" class="btn btn-primary btn-block">
-                    <i class="bi bi-book me-1"></i> Courses
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Manage Exam Card -->
-    <div class="col-md-4 mb-4">
-        <div class="card shadow-sm border-light rounded">
-            <div class="card-body">
-                <h5 class="card-title">Manage Exam</h5>
-                <p class="card-text">Easily schedule and manage exam data.</p>
-                <a href="{% url 'exam_list' %}" class="btn btn-primary btn-block">
-                    <i class="bi bi-journal-check me-1"></i> Exam
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Manage Timetable Card -->
-    <div class="col-md-4 mb-4">
-        <div class="card shadow-sm border-light rounded">
-            <div class="card-body">
-                <h5 class="card-title">Manage Timetable</h5>
-                <p class="card-text">Easily schedule and manage timetable.</p>
-                <a href="{% url 'timetable_list' %}" class="btn btn-primary btn-block">
-                    <i class="bi bi-calendar me-1"></i> Timetable
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Manage Teacher Card -->
-    <div class="col-md-4 mb-4">
-        <div class="card shadow-sm border-light rounded">
-            <div class="card-body">
-                <h5 class="card-title">Manage Teacher</h5>
-                <p class="card-text">Easily add and manage teacher.</p>
-                <a href="{% url 'teacher_list' %}" class="btn btn-primary btn-block">
-                    <i class="bi bi-person-plus me-1"></i> Teacher
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Manage Duty Card -->
-    <div class="col-md-4 mb-4">
-        <div class="card shadow-sm border-light rounded">
-            <div class="card-body">
-                <h5 class="card-title">Manage Duty</h5>
-                <p class="card-text">Easily manage duty allotment.</p>
-                <a href="{% url 'duty_allotment' %}" class="btn btn-primary btn-block">
-                    <i class="bi bi-clipboard-check me-1"></i> Duty
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Duty Summary Report Card -->
-    <div class="col-md-4 mb-4">
-        <div class="card shadow-sm border-light rounded">
-            <div class="card-body">
-                <h5 class="card-title">Duty Summary Report</h5>
-                <p class="card-text">View total duties taken by teachers in a selected time range.</p>
-                <a href="{% url 'chief_duty_history' %}" class="btn btn-success btn-block">
-                    <i class="bi bi-bar-chart-fill me-1"></i> Summary
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Exam Attendance Card -->
-    <div class="col-md-4 mb-4">
-        <div class="card shadow-sm border-light rounded">
-            <div class="card-body">
-                <h5 class="card-title">Exam Attendance</h5>
-                <p class="card-text">Setup and upload nominal roll for attendance.</p>
-                <a href="{% url 'setup_nominal_roll' %}" class="btn btn-primary btn-block">
-                    <i class="bi bi-file-earmark-spreadsheet me-1"></i> Nominal Roll
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-{% endif %}
-
-        
-        
-
-        {% if is_teacher %}
-        <div class="row">
-            <div class="col-md-6 mb-4">
-                <div class="card shadow-sm border-light rounded">
-                    <div class="card-body">
-                        <h5 class="card-title">Manage Duty Preferences</h5>
-                        <p class="card-text">Easily manage teacher's duty preferences.</p>
-                        <a href="{% url 'preference_list' %}" class="btn btn-primary btn-block">Go to Duty Preferences</a>
-                    </div>
-                </div>
-            </div>
-        
-            <div class="col-md-6 mb-4">
-                <div class="card shadow-sm border-light rounded">
-                    <div class="card-body">
-                        <h5 class="card-title">View Duty History</h5>
-                        <p class="card-text">See your duty allotment history.</p>
-                        <a href="{% url 'duty_history' %}" class="btn btn-primary btn-block">View Duty History</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row index-cards">
-            <div class="col-md-12 mb-4 ongoing-examination-card">
-                <div class="cards shadow-sm border-light rounded">
-                    <div class="cards-body">
-                        <h4 class="cards-title" style="text-align:center">Ongoing Examinations</h4>
-                        <ul>
-                        {% for exam in ongoing_exams %}
-                        <li>
-                            {% with exam.sem as semester %}
-                            {% if semester == 1 %}
-                            {{ semester }}st Semester {{ exam.level }} Examination {{ exam.month }} {{ exam.year }}
-                            {% elif semester == 2 %}
-                            {{ semester }}nd Semester {{ exam.level }} Examination {{ exam.month }} {{ exam.year }}
-                            {% elif semester == 3 %}
-                            {{ semester }}rd Semester {{ exam.level }} Examination {{ exam.month }} {{ exam.year }}
-                            {% else %}
-                            {{ semester }}th Semester {{ exam.level }} Examination {{ exam.month }} {{ exam.year }}
-                            {% endif %}
-                            {% endwith %}
-                        </li>
-                        {% empty %}
-                        <li>No ongoing examinations</li>
-                        {% endfor %}
-
-                        </ul>
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="container mt-4">
-            <div class="row">
-                <!-- Duty Allotted Dates Column -->
-                <div class="col-12 mb-4 duty-allotment-card">
-                    <div class="cards shadow-sm border-light rounded">
-                        <div class="cards-body">
-                            <h5 class="cards-title text-start">Duty Allotted Dates</h5>
-                            <ul class="list-group text-start">
-                                {% if duty_allotted_dates %}
-                                    {% for duty in duty_allotted_dates %}
-                                        <li class="list-group-item">{{ duty.date }} - Room {{ duty.room }}</li>
-                                    {% endfor %}
-                                {% else %}
-                                    <li class="list-group-item">No duty allotments</li>
-                                {% endif %}
-                            </ul>                            
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-
-                <!-- Preferred Dates Column -->
-                <div class="col-12 mt-4 duty-preference-card">
-                    <div class="cards shadow-sm border-light rounded">
-                        <div class="cards-body">
-                            <h5 class="cards-title text-start">Preferred Dates</h5>
-                            <ul class="list-group text-start">
-                                {% if preferred_dates %}
-                                    {% for preference in preferred_dates %}
-                                        <li class="list-group-item">{{ preference.pref_date }}</li>
-                                    {% endfor %}
-                                {% else %}
-                                    <li class="list-group-item">No preferred dates</li>
-                                {% endif %}
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {% endif %}
-    </div>
-</div>
+{% block header_title %}
+Dashboard
 {% endblock %}
 
- 
+
+{% block extra_css %}
+
+<style>
+
+    /* =====================================================
+       WELCOME
+    ===================================================== */
+
+    .welcome-section {
+
+        background:
+            linear-gradient(
+                135deg,
+                #0B1F3A 0%,
+                #12345B 65%,
+                #174B78 100%
+            );
+
+        border-radius: 16px;
+
+        padding: 30px 35px;
+
+        color: white;
+
+        margin-bottom: 28px;
+
+        position: relative;
+
+        overflow: hidden;
+
+        box-shadow:
+            0 10px 30px rgba(11,31,58,0.12);
+    }
+
+
+    .welcome-section::after {
+
+        content: "";
+
+        position: absolute;
+
+        width: 220px;
+        height: 220px;
+
+        border-radius: 50%;
+
+        background: rgba(255,255,255,0.04);
+
+        right: -60px;
+        top: -80px;
+    }
+
+
+    .welcome-section h1 {
+
+        font-size: 25px;
+
+        font-weight: 800;
+
+        margin-bottom: 7px;
+
+        position: relative;
+
+        z-index: 2;
+    }
+
+
+    .welcome-section p {
+
+        margin: 0;
+
+        color: #CBD5E1;
+
+        font-size: 13px;
+
+        position: relative;
+
+        z-index: 2;
+    }
+
+
+    /* =====================================================
+       SECTION TITLE
+    ===================================================== */
+
+    .section-heading {
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        margin-bottom: 15px;
+
+        margin-top: 25px;
+    }
+
+
+    .section-heading h3 {
+
+        font-size: 16px;
+
+        font-weight: 750;
+
+        margin: 0;
+    }
+
+
+    .section-heading span {
+
+        font-size: 11px;
+
+        color: #64748B;
+    }
+
+
+    /* =====================================================
+       QUICK ACCESS CARDS
+    ===================================================== */
+
+    .module-card {
+
+        background: white;
+
+        border: 1px solid #E2E8F0;
+
+        border-radius: 13px;
+
+        padding: 20px;
+
+        height: 100%;
+
+        transition: all 0.25s ease;
+
+        position: relative;
+
+        overflow: hidden;
+    }
+
+
+    .module-card:hover {
+
+        transform: translateY(-4px);
+
+        border-color: #BFDBFE;
+
+        box-shadow:
+            0 12px 28px rgba(15,23,42,0.08);
+    }
+
+
+    .module-icon {
+
+        width: 45px;
+        height: 45px;
+
+        border-radius: 11px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        font-size: 19px;
+
+        margin-bottom: 15px;
+    }
+
+
+    .icon-blue {
+
+        background: #EFF6FF;
+        color: #2563EB;
+    }
+
+
+    .icon-teal {
+
+        background: #ECFDF5;
+        color: #0F766E;
+    }
+
+
+    .icon-purple {
+
+        background: #F5F3FF;
+        color: #7C3AED;
+    }
+
+
+    .icon-orange {
+
+        background: #FFF7ED;
+        color: #EA580C;
+    }
+
+
+    .icon-red {
+
+        background: #FEF2F2;
+        color: #DC2626;
+    }
+
+
+    .module-card h5 {
+
+        font-size: 14px;
+
+        font-weight: 700;
+
+        margin-bottom: 7px;
+    }
+
+
+    .module-card p {
+
+        font-size: 11px;
+
+        line-height: 1.6;
+
+        color: #64748B;
+
+        min-height: 35px;
+
+        margin-bottom: 15px;
+    }
+
+
+    .module-link {
+
+        display: inline-flex;
+
+        align-items: center;
+
+        gap: 6px;
+
+        font-size: 11px;
+
+        font-weight: 700;
+
+        color: #2563EB;
+    }
+
+
+    .module-link i {
+
+        transition: transform 0.2s;
+    }
+
+
+    .module-card:hover .module-link i {
+
+        transform: translateX(4px);
+    }
+
+
+    /* =====================================================
+       LARGE ACTION CARDS
+    ===================================================== */
+
+    .action-card {
+
+        background: white;
+
+        border: 1px solid #E2E8F0;
+
+        border-radius: 14px;
+
+        padding: 23px;
+
+        height: 100%;
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 18px;
+
+        transition: 0.25s;
+    }
+
+
+    .action-card:hover {
+
+        transform: translateY(-3px);
+
+        box-shadow:
+            0 10px 25px rgba(15,23,42,0.07);
+    }
+
+
+    .action-icon {
+
+        min-width: 52px;
+
+        width: 52px;
+        height: 52px;
+
+        border-radius: 12px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        font-size: 21px;
+
+        background: #EFF6FF;
+
+        color: #2563EB;
+    }
+
+
+    .action-card h5 {
+
+        font-size: 14px;
+
+        font-weight: 700;
+
+        margin-bottom: 5px;
+    }
+
+
+    .action-card p {
+
+        margin: 0;
+
+        color: #64748B;
+
+        font-size: 11px;
+
+        line-height: 1.5;
+    }
+
+
+    .action-arrow {
+
+        margin-left: auto;
+
+        color: #94A3B8;
+
+        font-size: 14px;
+    }
+
+
+    /* =====================================================
+       TEACHER EXAM CARD
+    ===================================================== */
+
+    .info-panel {
+
+        background: white;
+
+        border: 1px solid #E2E8F0;
+
+        border-radius: 14px;
+
+        overflow: hidden;
+    }
+
+
+    .info-panel-header {
+
+        padding: 18px 21px;
+
+        border-bottom: 1px solid #E2E8F0;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+    }
+
+
+    .info-panel-header h4 {
+
+        font-size: 14px;
+
+        font-weight: 700;
+
+        margin: 0;
+    }
+
+
+    .status-badge {
+
+        background: #ECFDF5;
+
+        color: #047857;
+
+        border-radius: 20px;
+
+        padding: 5px 10px;
+
+        font-size: 9px;
+
+        font-weight: 700;
+
+        text-transform: uppercase;
+
+        letter-spacing: .5px;
+    }
+
+
+    .exam-list {
+
+        padding: 7px 20px 12px;
+
+        margin: 0;
+
+        list-style: none;
+    }
+
+
+    .exam-item {
+
+        padding: 13px 0;
+
+        border-bottom: 1px solid #F1F5F9;
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 12px;
+
+        font-size: 12px;
+
+        color: #334155;
+    }
+
+
+    .exam-item:last-child {
+
+        border-bottom: none;
+    }
+
+
+    .exam-dot {
+
+        width: 8px;
+        height: 8px;
+
+        border-radius: 50%;
+
+        background: #2563EB;
+
+        box-shadow: 0 0 0 4px #DBEAFE;
+
+        margin-left: 3px;
+
+        margin-right: 7px;
+    }
+
+
+    /* =====================================================
+       DATE LIST
+    ===================================================== */
+
+    .date-list {
+
+        list-style: none;
+
+        padding: 0 20px;
+
+        margin: 0;
+    }
+
+
+    .date-item {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 13px;
+
+        padding: 13px 0;
+
+        border-bottom: 1px solid #F1F5F9;
+    }
+
+
+    .date-item:last-child {
+
+        border-bottom: none;
+    }
+
+
+    .date-icon {
+
+        width: 36px;
+        height: 36px;
+
+        border-radius: 9px;
+
+        background: #EFF6FF;
+
+        color: #2563EB;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        font-size: 14px;
+    }
+
+
+    .date-text {
+
+        font-size: 11px;
+
+        color: #475569;
+    }
+
+
+    .date-text strong {
+
+        display: block;
+
+        font-size: 12px;
+
+        color: #172033;
+
+        margin-bottom: 2px;
+    }
+
+
+    .empty-state {
+
+        padding: 25px 20px;
+
+        text-align: center;
+
+        color: #94A3B8;
+
+        font-size: 11px;
+    }
+
+
+    /* =====================================================
+       TEACHER HERO
+    ===================================================== */
+
+    .teacher-hero {
+
+        background:
+            linear-gradient(
+                135deg,
+                #0F766E,
+                #115E59
+            );
+
+        border-radius: 16px;
+
+        padding: 28px 32px;
+
+        color: white;
+
+        margin-bottom: 25px;
+    }
+
+
+    .teacher-hero h1 {
+
+        font-size: 23px;
+
+        font-weight: 800;
+
+        margin-bottom: 6px;
+    }
+
+
+    .teacher-hero p {
+
+        margin: 0;
+
+        font-size: 12px;
+
+        color: #CCFBF1;
+    }
+
+
+    /* =====================================================
+       RESPONSIVE
+    ===================================================== */
+
+    @media (max-width: 768px) {
+
+        .welcome-section,
+        .teacher-hero {
+
+            padding: 25px;
+        }
+
+        .welcome-section h1 {
+
+            font-size: 21px;
+        }
+
+    }
+
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+
+
+<!-- =====================================================
+     CHIEF DASHBOARD
+===================================================== -->
+
+{% if is_chief %}
+
+
+<div class="welcome-section">
+
+    <h1>
+        Welcome back, {{ user.username|title }} 👋
+    </h1>
+
+    <p>
+        Manage examinations, resources, timetables and invigilation
+        duties from one centralized dashboard.
+    </p>
+
+</div>
+
+
+<div class="section-heading">
+
+    <h3>Management Modules</h3>
+
+    <span>
+        Examination administration
+    </span>
+
+</div>
+
+
+<div class="row g-3">
+
+
+    <!-- PROGRAMMES -->
+
+    <div class="col-xl-3 col-lg-4 col-md-6">
+
+        <div class="module-card">
+
+            <div class="module-icon icon-blue">
+
+                <i class="bi bi-diagram-3"></i>
+
+            </div>
+
+            <h5>Programmes</h5>
+
+            <p>
+                Organize and manage academic programmes.
+            </p>
+
+            <a href="{% url 'program_list' %}"
+               class="module-link">
+
+                Manage Programmes
+
+                <i class="bi bi-arrow-right"></i>
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- ROOMS -->
+
+    <div class="col-xl-3 col-lg-4 col-md-6">
+
+        <div class="module-card">
+
+            <div class="module-icon icon-teal">
+
+                <i class="bi bi-door-open"></i>
+
+            </div>
+
+            <h5>Examination Rooms</h5>
+
+            <p>
+                Maintain rooms and examination facilities.
+            </p>
+
+            <a href="{% url 'room_list' %}"
+               class="module-link">
+
+                Manage Rooms
+
+                <i class="bi bi-arrow-right"></i>
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- COURSES -->
+
+    <div class="col-xl-3 col-lg-4 col-md-6">
+
+        <div class="module-card">
+
+            <div class="module-icon icon-purple">
+
+                <i class="bi bi-book"></i>
+
+            </div>
+
+            <h5>Courses</h5>
+
+            <p>
+                Manage course information and assignments.
+            </p>
+
+            <a href="{% url 'course_list' %}"
+               class="module-link">
+
+                Manage Courses
+
+                <i class="bi bi-arrow-right"></i>
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- EXAMS -->
+
+    <div class="col-xl-3 col-lg-4 col-md-6">
+
+        <div class="module-card">
+
+            <div class="module-icon icon-orange">
+
+                <i class="bi bi-journal-check"></i>
+
+            </div>
+
+            <h5>Examinations</h5>
+
+            <p>
+                Schedule and manage examination details.
+            </p>
+
+            <a href="{% url 'exam_list' %}"
+               class="module-link">
+
+                Manage Exams
+
+                <i class="bi bi-arrow-right"></i>
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- TIMETABLE -->
+
+    <div class="col-xl-3 col-lg-4 col-md-6">
+
+        <div class="module-card">
+
+            <div class="module-icon icon-blue">
+
+                <i class="bi bi-calendar3"></i>
+
+            </div>
+
+            <h5>Timetable</h5>
+
+            <p>
+                Create and maintain examination schedules.
+            </p>
+
+            <a href="{% url 'timetable_list' %}"
+               class="module-link">
+
+                View Timetable
+
+                <i class="bi bi-arrow-right"></i>
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- TEACHERS -->
+
+    <div class="col-xl-3 col-lg-4 col-md-6">
+
+        <div class="module-card">
+
+            <div class="module-icon icon-teal">
+
+                <i class="bi bi-people"></i>
+
+            </div>
+
+            <h5>Teachers</h5>
+
+            <p>
+                Add and manage teachers and invigilators.
+            </p>
+
+            <a href="{% url 'teacher_list' %}"
+               class="module-link">
+
+                Manage Teachers
+
+                <i class="bi bi-arrow-right"></i>
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- DUTY -->
+
+    <div class="col-xl-3 col-lg-4 col-md-6">
+
+        <div class="module-card">
+
+            <div class="module-icon icon-red">
+
+                <i class="bi bi-person-check"></i>
+
+            </div>
+
+            <h5>Duty Allotment</h5>
+
+            <p>
+                Allocate invigilation duties efficiently.
+            </p>
+
+            <a href="{% url 'duty_allotment' %}"
+               class="module-link">
+
+                Allocate Duties
+
+                <i class="bi bi-arrow-right"></i>
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- ATTENDANCE -->
+
+    <div class="col-xl-3 col-lg-4 col-md-6">
+
+        <div class="module-card">
+
+            <div class="module-icon icon-orange">
+
+                <i class="bi bi-file-earmark-spreadsheet"></i>
+
+            </div>
+
+            <h5>Exam Attendance</h5>
+
+            <p>
+                Setup nominal rolls and manage attendance.
+            </p>
+
+            <a href="{% url 'setup_nominal_roll' %}"
+               class="module-link">
+
+                Manage Attendance
+
+                <i class="bi bi-arrow-right"></i>
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<!-- =====================================================
+     REPORTING
+===================================================== -->
+
+
+<div class="section-heading">
+
+    <h3>Reports & Operations</h3>
+
+    <span>
+        Monitor examination activities
+    </span>
+
+</div>
+
+
+<div class="row g-3">
+
+
+    <div class="col-md-6">
+
+        <a href="{% url 'chief_duty_history' %}"
+           style="color:inherit;">
+
+            <div class="action-card">
+
+                <div class="action-icon">
+
+                    <i class="bi bi-bar-chart-fill"></i>
+
+                </div>
+
+                <div>
+
+                    <h5>Duty Summary Report</h5>
+
+                    <p>
+                        Review teacher duty allocation and
+                        examination invigilation history.
+                    </p>
+
+                </div>
+
+                <div class="action-arrow">
+
+                    <i class="bi bi-chevron-right"></i>
+
+                </div>
+
+            </div>
+
+        </a>
+
+    </div>
+
+
+    <div class="col-md-6">
+
+        <a href="{% url 'duty_allotment' %}"
+           style="color:inherit;">
+
+            <div class="action-card">
+
+                <div class="action-icon">
+
+                    <i class="bi bi-clipboard-check"></i>
+
+                </div>
+
+                <div>
+
+                    <h5>Duty Allocation</h5>
+
+                    <p>
+                        Assign and review invigilation duties
+                        for upcoming examinations.
+                    </p>
+
+                </div>
+
+                <div class="action-arrow">
+
+                    <i class="bi bi-chevron-right"></i>
+
+                </div>
+
+            </div>
+
+        </a>
+
+    </div>
+
+
+</div>
+
+
+{% endif %}
+
+
+
+<!-- =====================================================
+     TEACHER DASHBOARD
+===================================================== -->
+
+{% if is_teacher %}
+
+
+<div class="teacher-hero">
+
+    <h1>
+        Welcome back, {{ user.username|title }} 👋
+    </h1>
+
+    <p>
+        View your examination duties, preferences and
+        upcoming invigilation assignments.
+    </p>
+
+</div>
+
+
+<!-- QUICK ACTIONS -->
+
+<div class="section-heading">
+
+    <h3>Quick Actions</h3>
+
+    <span>
+        Manage your duties
+    </span>
+
+</div>
+
+
+<div class="row g-3 mb-4">
+
+
+    <div class="col-md-6">
+
+        <a href="{% url 'preference_list' %}"
+           style="color:inherit;">
+
+            <div class="action-card">
+
+                <div class="action-icon">
+
+                    <i class="bi bi-sliders"></i>
+
+                </div>
+
+                <div>
+
+                    <h5>Duty Preferences</h5>
+
+                    <p>
+                        Manage your preferred dates for
+                        examination duties.
+                    </p>
+
+                </div>
+
+                <div class="action-arrow">
+
+                    <i class="bi bi-chevron-right"></i>
+
+                </div>
+
+            </div>
+
+        </a>
+
+    </div>
+
+
+    <div class="col-md-6">
+
+        <a href="{% url 'duty_history' %}"
+           style="color:inherit;">
+
+            <div class="action-card">
+
+                <div class="action-icon">
+
+                    <i class="bi bi-clock-history"></i>
+
+                </div>
+
+                <div>
+
+                    <h5>Duty History</h5>
+
+                    <p>
+                        Review your previous examination
+                        duty assignments.
+                    </p>
+
+                </div>
+
+                <div class="action-arrow">
+
+                    <i class="bi bi-chevron-right"></i>
+
+                </div>
+
+            </div>
+
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- ONGOING EXAMS -->
+
+<div class="row g-3">
+
+
+    <div class="col-lg-7">
+
+        <div class="info-panel">
+
+            <div class="info-panel-header">
+
+                <h4>
+                    <i class="bi bi-calendar-event me-2"
+                       style="color:#2563EB;"></i>
+
+                    Ongoing Examinations
+                </h4>
+
+                <span class="status-badge">
+                    Live
+                </span>
+
+            </div>
+
+
+            <ul class="exam-list">
+
+                {% for exam in ongoing_exams %}
+
+                <li class="exam-item">
+
+                    <span class="exam-dot"></span>
+
+                    <span>
+
+                        {% with semester=exam.sem %}
+
+                            {% if semester == 1 %}
+
+                                {{ semester }}st Semester
+
+                            {% elif semester == 2 %}
+
+                                {{ semester }}nd Semester
+
+                            {% elif semester == 3 %}
+
+                                {{ semester }}rd Semester
+
+                            {% else %}
+
+                                {{ semester }}th Semester
+
+                            {% endif %}
+
+                            {{ exam.level }}
+                            Examination
+                            {{ exam.month }}
+                            {{ exam.year }}
+
+                        {% endwith %}
+
+                    </span>
+
+                </li>
+
+                {% empty %}
+
+                <li class="empty-state">
+
+                    <i class="bi bi-calendar-x"
+                       style="font-size:24px;display:block;margin-bottom:8px;"></i>
+
+                    No ongoing examinations
+
+                </li>
+
+                {% endfor %}
+
+            </ul>
+
+        </div>
+
+    </div>
+
+
+    <!-- DUTY DATES -->
+
+    <div class="col-lg-5">
+
+        <div class="info-panel">
+
+            <div class="info-panel-header">
+
+                <h4>
+
+                    <i class="bi bi-clipboard-check me-2"
+                       style="color:#0F766E;"></i>
+
+                    Your Duty Dates
+
+                </h4>
+
+            </div>
+
+
+            <ul class="date-list">
+
+                {% if duty_allotted_dates %}
+
+                    {% for duty in duty_allotted_dates %}
+
+                    <li class="date-item">
+
+                        <div class="date-icon">
+
+                            <i class="bi bi-calendar-check"></i>
+
+                        </div>
+
+                        <div class="date-text">
+
+                            <strong>
+                                {{ duty.date }}
+                            </strong>
+
+                            Room {{ duty.room }}
+
+                        </div>
+
+                    </li>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <li class="empty-state">
+
+                        No duty allotments
+
+                    </li>
+
+                {% endif %}
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- PREFERRED DATES -->
+
+<div class="section-heading">
+
+    <h3>Preferred Duty Dates</h3>
+
+    <span>
+        Your submitted preferences
+    </span>
+
+</div>
+
+
+<div class="info-panel">
+
+    <ul class="date-list">
+
+        {% if preferred_dates %}
+
+            {% for preference in preferred_dates %}
+
+            <li class="date-item">
+
+                <div class="date-icon">
+
+                    <i class="bi bi-calendar-heart"></i>
+
+                </div>
+
+                <div class="date-text">
+
+                    <strong>
+                        {{ preference.pref_date }}
+                    </strong>
+
+                    Preferred examination duty date
+
+                </div>
+
+            </li>
+
+            {% endfor %}
+
+        {% else %}
+
+            <li class="empty-state">
+
+                <i class="bi bi-calendar-plus"
+                   style="font-size:25px;display:block;margin-bottom:8px;"></i>
+
+                No preferred dates submitted
+
+            </li>
+
+        {% endif %}
+
+    </ul>
+
+</div>
+
+
+{% endif %}
+
+
+{% endblock %}
