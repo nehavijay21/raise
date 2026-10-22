@@ -1,6 +1,7 @@
 # RAISE – Resource Allocation & Invigilation Scheduling Engine
 
 ## Description
+
 RAISE is a web-based system developed to automate teacher duty allocation and exam seating management.
 
 ## Features
